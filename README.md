@@ -13,23 +13,24 @@ Once you have you your Airbyte instance available, log in and note down the foll
 - Client Secret: Secret key for authentication . Obtained via Settings > Applications 
 - External User Id: A unique identifier you create and assign when generating an Embedded Widget. It's the identifier used to differentiate between unique users. You should create one unique identifier for each of your users. For testing, you may set it to 0.
 
-<!--ARCADE EMBED START-->
-<div style="position: relative; padding-bottom: calc(68.91708201178069% + 41px); height: 0; width: 100%;"><iframe src="https://demo.arcade.software/HOUfvsc3ToxmWJho3edd?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true" title="Airbyte Embedded - Configure Workspace" frameborder="0" loading="lazy" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="clipboard-write" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; color-scheme: light;" ></iframe></div>
-<!--ARCADE EMBED END-->
+
+
+[![Embedded configuration](https://i9.ytimg.com/vi_webp/H6ik3HAj0iY/mq1.webp?sqp=CMjB2MEG-oaymwEmCMACELQB8quKqQMa8AEB-AHgB4AC0AWKAgwIABABGGUgZShlMA8=&rs=AOn4CLC38FEXSGgvuELIpTQ__pmG12YTcQ)](https://youtu.be/H6ik3HAj0iY)
 
 Once you have the credentials, create a new `.env` file, based on `.env.example` and set the following keys:
 
-`
+<pre>
 AIRBYTE_ORGANIZATION_ID=your_organization_id
 AIRBYTE_CLIENT_ID=your_client_id
 AIRBYTE_CLIENT_SECRET=your_client_secret
-`
+</pre>
 
 ### Configure S3 for storing users
 Users created via Embedded will be stored in S3 buckets managed by you. Once you have the `.env` created with Airbyte credentials, go ahead and create an [S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html) and add the following values to the `.env`:
 
 `
 # AWS Credentials
+<pre>
 AWS_ACCESS_KEY=your_aws_access_key
 AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
 
@@ -37,12 +38,13 @@ AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key
 S3_BUCKET=your_s3_bucket_name
 S3_BUCKET_REGION=your_s3_bucket_region
 S3_BUCKET_PREFIX=your_s3_bucket_prefix
-`
+</pre>
+
 Next, we need to configure Airbyte to use this S3 bucket. From the command line, execute the following script to create the required connection:
 
-`
+<pre>
 $ ./setup.sh
-`
+</pre>
 
 Once you see confirmation that the connection was set up correctly, your Airbyte Embedded environment is ready to go!
 
@@ -55,9 +57,10 @@ To enable the app and Airbyte to communicate, please set `ALLOWED_ORIGIN` in the
 
 ### Starting the app
 From the commandline, run the following command:
-`
+
+<pre>
 node src/server.js
-`
+</pre>
 then go to http://localhost:3000 to access the web interface
 
 ### Adding users
