@@ -2,7 +2,7 @@
 
 This repo contains a sample webapp which includes the Airbyte Embedded widget that you can use to add clients to. 
 
-##Pre-requisites
+## Pre-requisites
 
 ### Airbyte credentials
 To use Airbyte Embedded, you requires an Airbyte Cloud or OSS instance with Embedded enabled. (Please contact sales if for how to sign up for Embedded).
@@ -15,7 +15,7 @@ Once you have you your Airbyte instance available, log in and note down the foll
 
 
 
-[![Embedded configuration](https://i9.ytimg.com/vi_webp/H6ik3HAj0iY/mq1.webp?sqp=CMjB2MEG-oaymwEmCMACELQB8quKqQMa8AEB-AHgB4AC0AWKAgwIABABGGUgZShlMA8=&rs=AOn4CLC38FEXSGgvuELIpTQ__pmG12YTcQ)](https://youtu.be/H6ik3HAj0iY)
+[watch video on configuration](https://youtu.be/H6ik3HAj0iY)
 
 Once you have the credentials, create a new `.env` file, based on `.env.example` and set the following keys:
 
