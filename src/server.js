@@ -62,6 +62,7 @@ app.post('/api/users', async (req, res) => {
     
     // Validate input
     if (!email) {
+        console.log(`[/api/users] Status: 400 - Email is required`);
         return res.status(400).json({ error: 'Email is required' });
     }
 
@@ -70,17 +71,21 @@ app.post('/api/users', async (req, res) => {
         const existingUser = db.findUser(email);
         if (existingUser) {
             setAuthCookie(res, email);
+            console.log(`[/api/users] Status: 200 - Existing user logged in: ${email}`);
             return res.json(existingUser);
         }
 
         const newUser = db.addUser(email);
         setAuthCookie(res, email);
+        console.log(`[/api/users] Status: 201 - New user created: ${email}`);
         res.status(201).json(newUser);
     } catch (error) {
         if (error.message === 'Email already exists') {
+            console.log(`[/api/users] Status: 400 - ${error.message}`);
             return res.status(400).json({ error: error.message });
         }
         console.error('Error creating user:', error);
+        console.log(`[/api/users] Status: 500 - Failed to create user: ${error.message}`);
         res.status(500).json({ error: 'Failed to create user' });
     }
 });

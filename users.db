@@ -1,5 +1,20 @@
 [
   {
     "email": "embedded@airbyte.io"
+  },
+  {
+    "email": "test@example.com"
+  },
+  {
+    "email": "quinton+1@airbyte.io"
+  },
+  {
+    "email": "quinton_wall@hotmail.com"
+  },
+  {
+    "email": "quinton+2@airbyte.io"
+  },
+  {
+    "email": "quinton+3@airbyte.io"
   }
 ]
