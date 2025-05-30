@@ -1,11 +1,11 @@
 # Getting Started with Airbyte Embedded
 
-This repo contains a sample webapp which includes the Airbyte Embedded widget that you can use to add clients to. 
+This repo contains a sample Node.js webapp which includes the Airbyte Embedded widget that you can use to add clients. 
 
 ## Pre-requisites
 
 ### Airbyte credentials
-To use Airbyte Embedded, you requires an Airbyte Cloud or OSS instance with Embedded enabled. (Please contact sales if for how to sign up for Embedded).
+To use Airbyte Embedded, must have an active Airbyte Cloud, or OSS, instance with Embedded enabled. (Please contact sales if for how to sign up for Embedded).
 Once you have you your Airbyte instance available, log in and note down the following values. You will need these to configure the webapp and one-time setup.
 
 - Orangization Id: Unique identifier to your Airbyte instance. Obtained via Settings > Embedded
@@ -13,11 +13,11 @@ Once you have you your Airbyte instance available, log in and note down the foll
 - Client Secret: Secret key for authentication . Obtained via Settings > Applications 
 - External User Id: A unique identifier you create and assign when generating an Embedded Widget. It's the identifier used to differentiate between unique users. You should create one unique identifier for each of your users. For testing, you may set it to 0.
 
+If you are still unsure where to retrieve these values, please [watch this video](https://youtu.be/H6ik3HAj0iY) for a walkthrough.
 
 
-[watch video on configuration](https://youtu.be/H6ik3HAj0iY)
-
-Once you have the credentials, create a new `.env` file, based on `.env.example` and set the following keys:
+### .Env
+Once you have the credentials, create a new `.env` file, based on `.env.example` container within the repo. Set the following keys to the values from above:
 
 <pre>
 AIRBYTE_ORGANIZATION_ID=your_organization_id
@@ -40,7 +40,7 @@ S3_BUCKET_REGION=your_s3_bucket_region
 S3_BUCKET_PREFIX=your_s3_bucket_prefix
 </pre>
 
-Next, we need to configure Airbyte to use this S3 bucket. From the command line, execute the following script to create the required connection:
+Next, configure Airbyte to use the S3 bucket. From the command line, execute the following script to create the required connection:
 
 <pre>
 $ ./setup.sh
@@ -61,14 +61,19 @@ From the commandline, run the following command:
 <pre>
 node src/server.js
 </pre>
-then go to http://localhost:3000 to access the web interface
+
+then, open your browser and navigate to http://localhost:3000 to access the web interface
+
+![Web app home](homepage.png)
+
 
 ### Adding users
-From here you can create users as required. Once you create the user, you will be presented with the Embedded widget to create connection endpoints. Within Airbyte, the user and connections will be assigned to a new workspace of the same name as the user you created. 
+From here you can create users as required. Once you create the user, you will be presented with the Embedded widget to create connection endpoints. 
 
-[TODO: screenshot of embed]
+![Embedded widget running in webapp](embed-wiget-screenshot.png)
 
-[TODO: screen shot of where you can see workspaces]
+Within Airbyte, the user and connections will be assigned to a new workspace of the same name as the user you created. 
 
+![Changing Workspaces](workspaces.png)
 
 
