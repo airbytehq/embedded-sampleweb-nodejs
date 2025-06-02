@@ -5,7 +5,7 @@ This repo contains a sample Node.js webapp which includes the Airbyte Embedded w
 ## Pre-requisites
 
 ### Airbyte credentials
-To use Airbyte Embedded, must have an active Airbyte Cloud, or OSS, instance with Embedded enabled. (Please contact sales if for how to sign up for Embedded).
+To use Airbyte Embedded, must have an active Airbyte Cloud, or OSS, instance with Embedded enabled. (Please [contact sales](https://share.hsforms.com/2uRdBz9VoTWiCtjECzRYgawcvair) if you would like to sign up for Airbyte Embedded).
 Once you have you your Airbyte instance available, log in and note down the following values. You will need these to configure the webapp and one-time setup.
 
 - Orangization Id: Unique identifier to your Airbyte instance. Obtained via Settings > Embedded
