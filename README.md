@@ -1,4 +1,5 @@
 # Getting Started with Airbyte Embedded
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
 
 This repo contains a sample Node.js webapp, which includes the [Airbyte Embedded](https://airbyte.com/embedded) widget that you can use to add clients.
 
