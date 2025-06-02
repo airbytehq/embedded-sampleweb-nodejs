@@ -1,6 +1,6 @@
 # Getting Started with Airbyte Embedded
 
-This repo contains a sample Node.js webapp which includes the Airbyte Embedded widget that you can use to add clients. 
+This repo contains a sample Node.js webapp, which includes the [Airbyte Embedded](https://airbyte.com/embedded) widget that you can use to add clients.
 
 ## Pre-requisites
 
