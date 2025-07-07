@@ -44,7 +44,7 @@ S3_BUCKET_PREFIX=your_s3_bucket_prefix
 Next, configure Airbyte to use the S3 bucket. From the command line, execute the following script to create the required connection:
 
 <pre>
-$ ./setup.sh
+$ ./setup-s3.sh
 </pre>
 
 Once you see confirmation that the connection was set up correctly, your Airbyte Embedded environment is ready to go!
