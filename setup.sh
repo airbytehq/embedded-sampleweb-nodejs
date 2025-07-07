@@ -4,20 +4,22 @@
 set -x
 
 echo "=== Starting Airbyte Setup ==="
+echo "* ONLY RUN THIS SCRIPT ONCE *"
+echo "* If you need to run it again after successfully executing previously, please contact support as your existing environment may need to be modified *"
 
-# Load .env file
-echo "Loading environment variables from .env"
-source .env
+# Load .env file from server directory
+echo "Loading environment variables from server/.env"
+source server/.env
 
 # Check if required variables are set
 echo "Checking required environment variables..."
-REQUIRED_VARS=("AIRBYTE_CLIENT_ID" "AIRBYTE_CLIENT_SECRET" "AIRBYTE_ORGANIZATION_ID" 
-               "AWS_ACCESS_KEY" "AWS_SECRET_ACCESS_KEY" "S3_BUCKET" 
-               "S3_BUCKET_REGION" "S3_BUCKET_PREFIX")
+REQUIRED_VARS=("SONAR_AIRBYTE_CLIENT_ID" "SONAR_AIRBYTE_CLIENT_SECRET" "SONAR_AIRBYTE_ORGANIZATION_ID" 
+               "SONAR_AWS_ACCESS_KEY" "SONAR_AWS_SECRET_ACCESS_KEY" "SONAR_S3_BUCKET" 
+               "SONAR_S3_BUCKET_REGION" "SONAR_S3_BUCKET_PREFIX")
 
 for var in "${REQUIRED_VARS[@]}"; do
   if [ -z "${!var}" ]; then
-    echo "ERROR: Required variable $var is not set in .env file"
+    echo "ERROR: Required variable $var is not set in server/.env file"
     exit 1
   else
     echo "✓ $var is set"
@@ -32,8 +34,8 @@ TOKEN_RESPONSE=$(curl -sX POST \
   'https://api.airbyte.com/v1/applications/token' \
   -H 'Content-Type: application/json' \
   -d "{
-    \"client_id\": \"${AIRBYTE_CLIENT_ID}\",
-    \"client_secret\": \"${AIRBYTE_CLIENT_SECRET}\",
+    \"client_id\": \"${SONAR_AIRBYTE_CLIENT_ID}\",
+    \"client_secret\": \"${SONAR_AIRBYTE_CLIENT_SECRET}\",
     \"grant-type\": \"client_credentials\"
   }")
 
@@ -49,32 +51,34 @@ fi
 
 # Create connection template that will replicate data to S3
 echo "Creating connection template for S3..."
-CONN_RESPONSE=$(curl -X POST 'https://api.airbyte.com/v1/config_templates/connections' \
+CONN_RESPONSE=$(curl -X POST 'https://api.airbyte.ai/api/v1/embedded/config_templates/connections/' \
     -H 'Content-Type: application/json' \
     -H "Authorization: Bearer ${ACCESS_TOKEN}" \
     -d "{
-      \"destinationName\": \"S3-embedded\", 
-      \"organizationId\": \"${AIRBYTE_ORGANIZATION_ID}\", 
-      \"destinationActorDefinitionId\": \"4816b78f-1489-44c1-9060-4b19d5fa9362\",
-      \"destinationConfiguration\": {
-        \"access_key_id\": \"${AWS_ACCESS_KEY}\",
-        \"secret_access_key\": \"${AWS_SECRET_ACCESS_KEY}\",
-        \"s3_bucket_name\": \"${S3_BUCKET}\",
-        \"s3_bucket_path\": \"${S3_BUCKET_PREFIX}\",
-        \"s3_bucket_region\": \"${S3_BUCKET_REGION}\",
+      \"organization_id\": \"${SONAR_AIRBYTE_ORGANIZATION_ID}\",
+      \"destination_name\": \"S3-embedded-tmp2\", 
+      \"destination_actor_definition_id\": \"4816b78f-1489-44c1-9060-4b19d5fa9362\",
+      \"destination_config\": {
+        \"access_key_id\": \"${SONAR_AWS_ACCESS_KEY}\",
+        \"secret_access_key\": \"${SONAR_AWS_SECRET_ACCESS_KEY}\",
+        \"s3_bucket_name\": \"${SONAR_S3_BUCKET}\",
+        \"s3_bucket_path\": \"${SONAR_S3_BUCKET_PREFIX}\",
+        \"s3_bucket_region\": \"${SONAR_S3_BUCKET_REGION}\",
         \"format\": {
             \"format_type\": \"CSV\",
             \"compression\": {
                 \"compression_type\": \"No Compression\"
             },
         \"flattening\": \"No flattening\"
-      }
-    }
+      },
+      \"cron_expression\": \"string\", 
+      \"non_breaking_changes_preference\": \"ignore\", 
+      \"sync_on_create\": true
   }
 }")
 
 # Print the full response for debugging
-echo "Connection template response:"
+echo "Raw Connection template response:"
 echo "$CONN_RESPONSE" | jq '.'
 
 # Check if connection creation was successful
